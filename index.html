@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎓 Portal de Estudos 8º Ano - Completo</title>
+
+<style>
+/* ============================================================
+   RESET
+   ============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ============================================================
+   VARIÁVEIS
+   ============================================================ */
+:root {
+  --lilas: #b19cd9;
+  --lilas-escuro: #8a6fbf;
+  --lilas-claro: #d4c5f0;
+  --roxo-fundo: #1a1025;
+  --roxo-fundo-2: #2d1b4e;
+  --branco: #ffffff;
+  --cinza-texto: #c9b8e8;
+  --erro: #ff4d6d;
+  --sucesso: #4dff9e;
+  --amarelo: #ffb84d;
+  --sombra: rgba(0,0,0,0.4);
+  --brilho: rgba(177,156,217,0.5);
+}
+
+/* ============================================================
+   BODY
+   ============================================================ */
+body {
+  min-height: 100vh;
+  font-family: 'Segoe UI', 'Trebuchet MS', sans-serif;
+  background: linear-gradient(135deg, var(--roxo-fundo), var(--roxo-fundo-2), var(--lilas-escuro));
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+  color: var(--branco);
+  overflow-x: hidden;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ============================================================
+   PARTÍCULAS
+   ============================================================ */
+.particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+.particle {
+  position: absolute; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--lilas-claro);
+  opacity: 0.4; animation: floatUp linear infinite;
+}
+@keyframes floatUp {
+  0% { transform: translateY(100vh) scale(0); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+}
+.particle:nth-child(1) { left: 5%; animation-duration: 12s; }
+.particle:nth-child(2) { left: 15%; animation-duration: 16s; animation-delay: 2s; }
+.particle:nth-child(3) { left: 25%; animation-duration: 10s; animation-delay: 4s; }
+.particle:nth-child(4) { left: 35%; animation-duration: 14s; animation-delay: 1s; }
+.particle:nth-child(5) { left: 45%; animation-duration: 18s; animation-delay: 3s; }
+.particle:nth-child(6) { left: 55%; animation-duration: 11s; animation-delay: 5s; }
+.particle:nth-child(7) { left: 65%; animation-duration: 15s; animation-delay: 0.5s; }
+.particle:nth-child(8) { left: 75%; animation-duration: 13s; animation-delay: 2.5s; }
+.particle:nth-child(9) { left: 85%; animation-duration: 17s; animation-delay: 4.5s; }
+.particle:nth-child(10) { left: 95%; animation-duration: 12s; animation-delay: 1.5s; }
+
+/* ============================================================
+   TELAS
+   ============================================================ */
+.tela { display: none; min-height: 100vh; padding: 40px 20px; position: relative; z-index: 1; width: 100%; }
+.tela.ativa { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.tela.conteudo { justify-content: flex-start; }
+
+/* Container das telas de matérias geradas */
+#telas-materias { width: 100%; display: block; position: relative; z-index: 1; }
+#telas-materias .tela.ativa {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: flex-start;
+  min-height: 100vh; padding: 40px 20px; width: 100%;
+}
+
+/* ============================================================
+   LOGIN
+   ============================================================ */
+.card {
+  position: relative; width: 380px; max-width: 95%; padding: 40px 32px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 8px 32px var(--sombra), inset 0 1px 0 rgba(255,255,255,0.2);
+  animation: cardEnter 0.8s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes cardEnter {
+  from { opacity: 0; transform: translateY(40px) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.lock-icon {
+  width: 70px; height: 70px; margin: 0 auto 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--lilas), var(--lilas-escuro));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 34px; box-shadow: 0 0 30px var(--brilho);
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+@keyframes pulseGlow {
+  0%,100% { box-shadow: 0 0 20px var(--brilho); transform: scale(1); }
+  50% { box-shadow: 0 0 45px var(--brilho); transform: scale(1.06); }
+}
+.card h1 { text-align: center; font-size: 22px; letter-spacing: 1px; margin-bottom: 6px; }
+.card p.subtitle { text-align: center; font-size: 13px; color: var(--cinza-texto); margin-bottom: 28px; }
+
+.input-group { position: relative; margin-bottom: 18px; }
+.input-group input {
+  width: 100%; padding: 14px 46px 14px 16px; border-radius: 12px;
+  border: 2px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05); color: var(--branco);
+  font-size: 15px; letter-spacing: 2px; outline: none; transition: all 0.3s;
+}
+.input-group input:focus {
+  border-color: var(--lilas); background: rgba(177,156,217,0.1);
+  box-shadow: 0 0 20px var(--brilho);
+}
+.toggle-eye {
+  position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+  cursor: pointer; font-size: 18px; opacity: 0.7;
+}
+.strength-bar {
+  height: 4px; border-radius: 2px; background: rgba(255,255,255,0.1);
+  overflow: hidden; margin-bottom: 18px;
+}
+.strength-fill {
+  height: 100%; width: 0%; border-radius: 2px;
+  background: var(--lilas); transition: all 0.3s;
+}
+
+button {
+  background-color: var(--lilas); color: var(--branco);
+  border: none; padding: 14px 20px; border-radius: 12px;
+  cursor: pointer; font-size: 15px; font-weight: 600;
+  letter-spacing: 1px; width: 100%; margin-bottom: 12px;
+  transition: transform 0.15s, box-shadow 0.3s, background 0.3s;
+  box-shadow: 0 4px 15px rgba(177,156,217,0.3);
+}
+button:hover {
+  background: var(--lilas-escuro); transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(177,156,217,0.6);
+}
+button.secundario {
+  background: transparent; border: 2px solid var(--lilas);
+  color: var(--lilas-claro); box-shadow: none;
+}
+button.secundario:hover { background: rgba(177,156,217,0.15); color: var(--branco); }
+
+.feedback {
+  text-align: center; font-size: 13px; min-height: 20px;
+  margin-bottom: 10px; font-weight: 600; opacity: 0; transition: opacity 0.3s;
+}
+.feedback.show { opacity: 1; }
+.feedback.erro { color: var(--erro); animation: shake 0.5s; }
+.feedback.sucesso { color: var(--sucesso); }
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+}
+.spinner {
+  display: inline-block; width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,0.3); border-top-color: var(--branco);
+  border-radius: 50%; animation: spin 0.8s linear infinite;
+  vertical-align: middle; margin-right: 8px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.rodape { text-align: center; font-size: 11px; color: rgba(201,184,232,0.4); margin-top: 18px; letter-spacing: 1px; }
+
+/* ============================================================
+   CONFETES
+   ============================================================ */
+.confete {
+  position: fixed; width: 10px; height: 10px; top: -20px;
+  z-index: 9999; pointer-events: none; animation: cair linear forwards;
+}
+@keyframes cair {
+  to { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+}
+
+/* ============================================================
+   PORTAL
+   ============================================================ */
+.portal-titulo {
+  font-size: 32px; text-align: center; margin-bottom: 8px;
+  text-shadow: 0 4px 20px rgba(177,156,217,0.8);
+}
+.portal-sub { color: var(--cinza-texto); margin-bottom: 30px; text-align: center; }
+
+.materias {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px; max-width: 1200px; width: 100%;
+}
+.materia-card {
+  padding: 28px 18px; border-radius: 20px; text-align: center;
+  cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;
+  position: relative; overflow: hidden;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.2);
+  background: linear-gradient(135deg, rgba(177,156,217,0.25), rgba(177,156,217,0.05));
+  box-shadow: 0 8px 32px rgba(177,156,217,0.3);
+}
+.materia-card:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 12px 50px rgba(177,156,217,0.8); }
+
+.materia-icone { font-size: 44px; margin-bottom: 12px; }
+.materia-nome { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+.materia-desc { font-size: 12px; color: var(--cinza-texto); }
+
+.resumo-card {
+  background: linear-gradient(135deg, rgba(255,77,109,0.25), rgba(255,159,107,0.1));
+  border: 2px solid var(--erro);
+  max-width: 400px; margin: 30px auto 0;
+}
+.resumo-card:hover { box-shadow: 0 12px 50px rgba(255,77,109,0.8); }
+
+/* ============================================================
+   PÁGINA DE MATÉRIA
+   ============================================================ */
+.materia-conteudo { max-width: 1000px; width: 100%; margin: 0 auto; }
+.voltar-btn {
+  width: auto; padding: 10px 22px; margin-bottom: 20px;
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+  font-size: 14px;
+}
+.voltar-btn:hover { background: rgba(255,255,255,0.2); }
+.materia-titulo {
+  font-size: 36px; text-align: center; margin-bottom: 8px;
+  text-shadow: 0 4px 20px rgba(177,156,217,0.8);
+}
+.materia-subtitulo {
+  text-align: center; color: var(--cinza-texto);
+  margin-bottom: 40px; font-size: 14px;
+}
+.secao {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+.secao h3 {
+  font-size: 20px; margin-bottom: 16px; color: var(--lilas-claro);
+  border-left: 4px solid var(--lilas); padding-left: 12px;
+}
+.secao p { line-height: 1.7; color: var(--cinza-texto); margin-bottom: 12px; }
+.secao ul { margin-left: 24px; margin-bottom: 12px; line-height: 1.8; color: var(--cinza-texto); }
+.secao li { margin-bottom: 6px; }
+.secao strong { color: var(--branco); }
+.exemplo {
+  background: rgba(0,0,0,0.25); padding: 14px 18px;
+  border-radius: 10px; font-family: 'Courier New', monospace;
+  color: var(--amarelo); margin: 10px 0; border-left: 3px solid var(--amarelo);
+}
+
+/* ============================================================
+   PROVA
+   ============================================================ */
+.prova-container {
+  background: rgba(0,0,0,0.3);
+  border: 2px solid var(--lilas);
+  border-radius: 20px;
+  padding: 32px;
+  margin-top: 40px;
+  box-shadow: 0 0 40px rgba(177,156,217,0.4);
+}
+.prova-titulo {
+  font-size: 26px; text-align: center; margin-bottom: 8px;
+  color: var(--lilas-claro); text-shadow: 0 0 20px var(--brilho);
+}
+.prova-sub { text-align: center; color: var(--cinza-texto); margin-bottom: 24px; font-size: 13px; }
+
+.questao {
+  background: rgba(255,255,255,0.05);
+  border-radius: 14px; padding: 20px; margin-bottom: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: border-color 0.3s;
+}
+.questao.respondida { border-color: var(--lilas); }
+.questao-enunciado {
+  font-weight: 600; margin-bottom: 14px; color: var(--branco);
+  font-size: 15px;
+}
+.opcoes { display: flex; flex-direction: column; gap: 8px; }
+.opcao {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  cursor: pointer; transition: all 0.2s; font-size: 14px;
+  color: var(--cinza-texto);
+}
+.opcao:hover { background: rgba(177,156,217,0.15); border-color: var(--lilas); }
+.opcao input { cursor: pointer; accent-color: var(--lilas); }
+.opcao.correta { background: rgba(77,255,158,0.2); border-color: var(--sucesso); color: var(--sucesso); }
+.opcao.errada { background: rgba(255,77,109,0.2); border-color: var(--erro); color: var(--erro); }
+
+.botao-prova {
+  margin-top: 24px; font-size: 16px; padding: 16px;
+  background: linear-gradient(135deg, var(--lilas), var(--lilas-escuro));
+}
+.resultado-prova {
+  text-align: center; padding: 24px; margin-top: 20px;
+  border-radius: 16px; font-size: 20px; font-weight: 700;
+  display: none;
+}
+.resultado-prova.show { display: block; animation: cardEnter 0.5s; }
+.resultado-prova.aprovado { background: rgba(77,255,158,0.15); color: var(--sucesso); border: 2px solid var(--sucesso); }
+.resultado-prova.reprovado { background: rgba(255,77,109,0.15); color: var(--erro); border: 2px solid var(--erro); }
+
+/* ============================================================
+   RESUMO DE ERROS
+   ============================================================ */
+.resumo-erros {
+  margin-top: 24px; padding: 24px;
+  background: rgba(255,77,109,0.1);
+  border: 2px solid var(--erro);
+  border-radius: 16px;
+  display: none;
+}
+.resumo-erros.show { display: block; animation: cardEnter 0.5s; }
+.resumo-erros h4 {
+  color: var(--erro); font-size: 18px; margin-bottom: 16px;
+  text-align: center;
+}
+.erro-item {
+  background: rgba(0,0,0,0.3); padding: 14px 18px;
+  border-radius: 10px; margin-bottom: 12px;
+  border-left: 3px solid var(--erro);
+}
+.erro-item .enunciado {
+  font-weight: 600; color: var(--branco); margin-bottom: 8px;
+  font-size: 14px;
+}
+.erro-item .resposta-errada { color: var(--erro); font-size: 13px; margin-bottom: 4px; }
+.erro-item .resposta-certa { color: var(--sucesso); font-size: 13px; }
+.erro-item .dica {
+  margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.2);
+  color: var(--amarelo); font-size: 13px; font-style: italic;
+}
+
+/* Página de resumo geral */
+.resumo-geral-container { max-width: 900px; width: 100%; margin: 0 auto; }
+.resumo-geral-vazio {
+  text-align: center; padding: 60px 20px; color: var(--cinza-texto);
+  font-size: 16px;
+}
+.materia-resumo-bloco {
+  background: rgba(255,255,255,0.06);
+  border-radius: 20px; padding: 24px; margin-bottom: 20px;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.materia-resumo-bloco h3 {
+  color: var(--lilas-claro); margin-bottom: 16px; font-size: 19px;
+  border-left: 4px solid var(--lilas); padding-left: 12px;
+}
+.botao-limpar {
+  background: linear-gradient(135deg, var(--erro), #c92a4d);
+  margin-bottom: 24px;
+}
+
+@media (max-width: 600px) {
+  .card { width: 95%; padding: 30px 22px; }
+  .portal-titulo, .materia-titulo { font-size: 24px; }
+  .secao { padding: 20px; }
+  .prova-container { padding: 20px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PARTÍCULAS -->
+<div class="particles">
+  <div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div><div class="particle"></div>
+</div>
+
+<!-- TELA LOGIN -->
+<div class="tela ativa" id="tela-login">
+  <div class="card">
+    <div class="lock-icon">🔐</div>
+    <h1>SISTEMA SEGURO</h1>
+    <p class="subtitle">Digite sua senha para continuar</p>
+    <div class="input-group">
+      <input type="password" id="senha" placeholder="••••••" maxlength="16">
+      <span class="toggle-eye" id="olho" onclick="alternarOlho()">👁️</span>
+    </div>
+    <div class="strength-bar"><div class="strength-fill" id="forca"></div></div>
+    <div class="feedback" id="feedback"></div>
+    <button onclick="verificarSenha()" id="btnEntrar">ENTRAR</button>
+    <button class="secundario" onclick="mostrarSenhaAleatoria()">Hi javascript!</button>
+    <div class="rodape">v5.0 • portal completo</div>
+  </div>
+</div>
+
+<!-- TELA PORTAL -->
+<div class="tela" id="tela-portal">
+  <h2 class="portal-titulo">🎓 Portal de Estudos</h2>
+  <p class="portal-sub">13 matérias disponíveis • escolha uma</p>
+  <div class="materias" id="lista-materias"></div>
+  <div class="materia-card resumo-card" onclick="abrirTela('tela-resumo')">
+    <div class="materia-icone">📋</div>
+    <div class="materia-nome">Meus Erros</div>
+    <div class="materia-desc">Veja o resumo do que você errou</div>
+  </div>
+</div>
+
+<!-- TELA RESUMO GERAL -->
+<div class="tela conteudo" id="tela-resumo">
+  <div class="resumo-geral-container">
+    <button class="voltar-btn" onclick="abrirTela('tela-portal')">← Voltar ao Portal</button>
+    <h2 class="materia-titulo">📋 Meus Erros</h2>
+    <p class="materia-subtitulo">Resumo de todas as questões que você errou</p>
+    <button class="botao-limpar" onclick="limparHistorico()">🗑️ Limpar Histórico</button>
+    <div id="resumo-geral-conteudo"></div>
+  </div>
+</div>
+
+<!-- CONTAINER DAS TELAS DE MATÉRIA -->
+<div id="telas-materias"></div>
+
+<script>
+/* ============================================================
+   DADOS
+   ============================================================ */
+const MATERIAS = [
+  { id: "matematica",   icone: "📐", nome: "Matemática",        desc: "Divisão, Raiz, Multiplicação, Fração" },
+  { id: "portugues",    icone: "📖", nome: "Português",         desc: "Classes, sujeito, figuras de linguagem" },
+  { id: "ciencias",     icone: "🔬", nome: "Ciências",          desc: "Célula, sistemas, ecologia" },
+  { id: "geografia",    icone: "🌍", nome: "Geografia",         desc: "Clima, relevo, população, globalização" },
+  { id: "historia",     icone: "🏛️", nome: "História",          desc: "Brasil Colônia, Império, República" },
+  { id: "artes",        icone: "🎨", nome: "Artes",             desc: "Movimentos artísticos, cores, música" },
+  { id: "edfisica",     icone: "⚽", nome: "Educação Física",   desc: "Esportes, corpo, saúde, regras" },
+  { id: "sociologia",   icone: "👥", nome: "Sociologia",        desc: "Sociedade, cidadania, cultura" },
+  { id: "conhecimento", icone: "🧠", nome: "Conhecimento Geral",desc: "Curiosidades, atualidades, mundo" },
+  { id: "logica",       icone: "🧩", nome: "Raciocínio Lógico", desc: "Sequências, padrões, dedução" },
+  { id: "filosofia",    icone: "🤔", nome: "Filosofia",         desc: "Filósofos, ética, pensamento" },
+  { id: "diversificada1", icone: "🌟", nome: "Diversificada 1", desc: "Temas transversais variados" },
+  { id: "diversificada2", icone: "✨", nome: "Diversificada 2", desc: "Mais temas transversais" }
+];
+
+const CONTEUDO = {
+  matematica: [
+    { titulo: "1. Divisão", texto: "Operação inversa da multiplicação. Termos: dividendo ÷ divisor = quociente (com resto). Não existe divisão por zero.", exemplo: "24 ÷ 6 = 4 | 47 ÷ 5 = 9 com resto 2" },
+    { titulo: "2. Multiplicação", texto: "Soma de parcelas iguais. Regra dos sinais: (+) × (+) = (+); (-) × (-) = (+); (+) × (-) = (-).", exemplo: "(-3) × (-4) = +12 | 3 × (4+5) = 27" },
+    { titulo: "3. Raiz Quadrada", texto: "Valor que, multiplicado por si mesmo, resulta no número. Quadrados perfeitos: 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144.", exemplo: "√25 = 5 | √144 = 12" },
+    { titulo: "4. Frações", texto: "Representa parte de um todo (a/b). Soma/subtração precisa de MMC. Multiplicação: numerador × numerador. Divisão: multiplica pelo inverso.", exemplo: "1/2 + 1/3 = 5/6 | 2/3 × 3/4 = 1/2" }
+  ],
+  portugues: [
+    { titulo: "1. Classes de Palavras", texto: "10 classes: substantivo, artigo, adjetivo, pronome, verbo, advérbio, preposição, conjunção, numeral, interjeição.", exemplo: "Casa (subst.) | bonito (adj.) | correr (verbo)" },
+    { titulo: "2. Sujeito e Predicado", texto: "Sujeito: sobre quem se declara. Predicado: o que se declara. Tipos: simples, composto, oculto, indeterminado, inexistente.", exemplo: "O menino (sujeito) correu (predicado)." },
+    { titulo: "3. Figuras de Linguagem", texto: "Metáfora (comparação implícita), comparação (com 'como'), personificação, hipérbole (exagero), ironia.", exemplo: "'Meus olhos são o mar' = metáfora." },
+    { titulo: "4. Acentuação", texto: "Oxítonas em a, e, o, em, ens. Paroxítonas em ã, i, us, l, n, r, x, ps. Proparoxítonas: todas acentuadas.", exemplo: "café, fácil, lâmpada" }
+  ],
+  ciencias: [
+    { titulo: "1. Célula", texto: "Menor unidade viva. Procarionte (sem núcleo) ou eucarionte (com núcleo). Partes: membrana, citoplasma, núcleo, mitocôndria, cloroplasto.", exemplo: "Mitocôndria = energia. Cloroplasto = fotossíntese." },
+    { titulo: "2. Sistemas do Corpo", texto: "Digestório (nutrientes), respiratório (gases), circulatório (sangue), nervoso (coordenação), endócrino (hormônios).", exemplo: "Coração faz parte do sistema circulatório." },
+    { titulo: "3. Fotossíntese", texto: "Plantas produzem alimento usando luz. Ocorre nos cloroplastos. Libera O₂.", exemplo: "6CO₂ + 6H₂O + luz → glicose + 6O₂" },
+    { titulo: "4. Ecologia", texto: "Cadeia alimentar: produtores → consumidores → decompositores. Ecossistema = seres vivos + ambiente.", exemplo: "Planta → gafanhoto → sapo → cobra" }
+  ],
+  geografia: [
+    { titulo: "1. Clima e Tempo", texto: "Tempo = momento. Clima = média de longos anos. Fatores: latitude, altitude, maritimidade, correntes.", exemplo: "Equador = quente. Polos = frios." },
+    { titulo: "2. Relevo", texto: "Formas: planalto, planície, depressão, montanha. Agentes: tectonismo, vulcanismo, erosão.", exemplo: "Planalto = altitude elevada, topo plano." },
+    { titulo: "3. População", texto: "Crescimento, densidade demográfica, migração, urbanização. Brasil é populoso mas pouco povoado.", exemplo: "Densidade = habitantes ÷ área." },
+    { titulo: "4. Globalização", texto: "Integração econômica, cultural e informacional entre países. Blocos econômicos: Mercosul, UE, NAFTA.", exemplo: "Mercosul = Brasil, Argentina, Uruguai, Paraguai." }
+  ],
+  historia: [
+    { titulo: "1. Brasil Colônia (1500-1822)", texto: "Chegada dos portugueses, capitanias hereditárias, escravidão, ciclo do açúcar e do ouro.", exemplo: "1500 = chegada de Cabral." },
+    { titulo: "2. Brasil Império (1822-1889)", texto: "Independência (1822), D. Pedro I e II, Constituição de 1824, abolição (1888).", exemplo: "Lei Áurea = 1888, princesa Isabel." },
+    { titulo: "3. República (1889+)", texto: "República Velha, Era Vargas (1930-45), Ditadura Militar (1964-85), Nova República.", exemplo: "Vargas = Estado Novo, CLT." },
+    { titulo: "4. Grandes Eventos Mundiais", texto: "Revolução Francesa (1789), Revolução Industrial, Guerras Mundiais.", exemplo: "1ª Guerra: 1914-18. 2ª: 1939-45." }
+  ],
+  artes: [
+    { titulo: "1. Movimentos Artísticos", texto: "Renascimento, Barroco, Impressionismo, Cubismo, Modernismo, Pop Art.", exemplo: "Monet = Impressionismo. Picasso = Cubismo." },
+    { titulo: "2. Cores", texto: "Primárias (azul, amarelo, vermelho), secundárias (verde, laranja, roxo), terciárias. Cores quentes e frias.", exemplo: "Azul + amarelo = verde." },
+    { titulo: "3. Música", texto: "Elementos: melodia, harmonia, ritmo. Instrumentos: cordas, sopro, percussão.", exemplo: "Violão = cordas. Flauta = sopro." },
+    { titulo: "4. Arte Brasileira", texto: "Semana de Arte Moderna (1922), Tarsila do Amaral, Portinari, Aleijadinho.", exemplo: "Abaporu = Tarsila do Amaral." }
+  ],
+  edfisica: [
+    { titulo: "1. Esportes Coletivos", texto: "Futebol, vôlei, basquete, handebol. Cada um tem regras específicas.", exemplo: "Vôlei: 6 jogadores por time." },
+    { titulo: "2. Corpo e Saúde", texto: "Exercício físico melhora condicionamento, saúde mental, previne doenças.", exemplo: "30 min/dia já traz benefícios." },
+    { titulo: "3. Esportes Individuais", texto: "Atletismo, natação, tênis, ginástica. Foco no desempenho individual.", exemplo: "100m rasos = prova de velocidade." },
+    { titulo: "4. Fair Play", texto: "Respeito às regras, aos adversários e ao árbitro. Espírito esportivo.", exemplo: "Cumprimentar o adversário após o jogo." }
+  ],
+  sociologia: [
+    { titulo: "1. Sociedade", texto: "Conjunto de indivíduos que vivem juntos com regras. Estudo das relações sociais.", exemplo: "Família, escola, trabalho = instituições." },
+    { titulo: "2. Cidadania", texto: "Direitos e deveres do cidadão. Direitos civis, políticos e sociais.", exemplo: "Votar = direito político." },
+    { titulo: "3. Cultura", texto: "Conjunto de costumes, crenças, valores de um povo. Material e imaterial.", exemplo: "Carnaval = cultura imaterial." },
+    { titulo: "4. Desigualdade Social", texto: "Diferenças de acesso a recursos, educação, saúde. Estratificação social.", exemplo: "Diferença de renda entre classes." }
+  ],
+  conhecimento: [
+    { titulo: "1. Geografia Mundial", texto: "Continentes, oceanos, países mais populosos. Ásia é o maior continente.", exemplo: "China e Índia = mais populosos." },
+    { titulo: "2. Ciência e Tecnologia", texto: "Descobertas que mudaram o mundo: eletricidade, internet, vacinas.", exemplo: "Internet surgiu nos anos 60." },
+    { titulo: "3. Atualidades", texto: "Eventos recentes: eleições, conflitos, meio ambiente, economia.", exemplo: "ONU = organização mundial." },
+    { titulo: "4. Cultura Popular", texto: "Música, cinema, esportes, literatura. Influências mundiais.", exemplo: "Oscar = prêmio de cinema." }
+  ],
+  logica: [
+    { titulo: "1. Sequências", texto: "Descobrir o padrão: soma, subtração, multiplicação ou alternância.", exemplo: "2, 4, 6, 8, ... → próximo é 10." },
+    { titulo: "2. Dedução", texto: "A partir de premissas, chegar a conclusões lógicas.", exemplo: "Todo A é B. X é A. Logo X é B." },
+    { titulo: "3. Analogias", texto: "Relação entre pares de palavras ou números.", exemplo: "Pé está para perna, assim como mão para braço." },
+    { titulo: "4. Raciocínio Matemático", texto: "Problemas que exigem cálculo, lógica e interpretação.", exemplo: "Se 3 canetas custam R$6, 5 custam R$10." }
+  ],
+  filosofia: [
+    { titulo: "1. O que é Filosofia", texto: "Amor à sabedoria. Busca por respostas racionais às grandes questões.", exemplo: "Sócrates: 'Conhece-te a ti mesmo'." },
+    { titulo: "2. Filósofos Importantes", texto: "Sócrates, Platão, Aristóteles, Descartes, Kant, Nietzsche.", exemplo: "Platão = mundo das ideias." },
+    { titulo: "3. Ética", texto: "Estudo do certo e errado. Moral = costumes. Ética = reflexão sobre a moral.", exemplo: "Roubar é errado por quê?" },
+    { titulo: "4. Existencialismo", texto: "Foco na existência individual, liberdade e escolha.", exemplo: "Sartre: 'O homem é livre'." }
+  ],
+  diversificada1: [
+    { titulo: "1. Meio Ambiente", texto: "Preservação, reciclagem, sustentabilidade, aquecimento global.", exemplo: "Reciclar = reduzir lixo." },
+    { titulo: "2. Tecnologia e Sociedade", texto: "Uso de redes sociais, privacidade, fake news.", exemplo: "Checar fontes evita fake news." },
+    { titulo: "3. Saúde e Bem-estar", texto: "Alimentação, sono, exercício, saúde mental.", exemplo: "Dormir 8h melhora aprendizado." },
+    { titulo: "4. Direitos Humanos", texto: "Igualdade, liberdade, dignidade. Declaração Universal (1948).", exemplo: "Todos nascem livres e iguais." }
+  ],
+  diversificada2: [
+    { titulo: "1. Educação Financeira", texto: "Poupar, investir, controlar gastos. Juros simples e compostos.", exemplo: "Juros compostos crescem exponencialmente." },
+    { titulo: "2. Consumo Consciente", texto: "Comprar o necessário, evitar desperdício, preferir produtos sustentáveis.", exemplo: "Levar sacola reutilizável." },
+    { titulo: "3. Diversidade Cultural", texto: "Respeito às diferenças, cultura afro-brasileira, indígena, imigrante.", exemplo: "Brasil é multicultural." },
+    { titulo: "4. Comunicação", texto: "Expressão oral, escrita, escuta ativa, argumentação.", exemplo: "Saber ouvir é parte de comunicar." }
+  ]
+};
+
+const QUESTOES = {
+  matematica: [
+    { q: "Qual é o resultado de 144 ÷ 12?", opcoes: ["10","12","14","16"], correta: 1, dica: "12 × 12 = 144." },
+    { q: "Qual é a raiz quadrada de 169?", opcoes: ["11","12","13","14"], correta: 2, dica: "13 × 13 = 169." },
+    { q: "Quanto é (-5) × (-6)?", opcoes: ["-30","30","-11","11"], correta: 1, dica: "Sinais iguais → positivo." },
+    { q: "Quanto é 2/3 + 1/3?", opcoes: ["3/6","1","2/6","3/3"], correta: 1, dica: "Mesmo denominador: soma numeradores. 3/3 = 1." },
+    { q: "Quanto é 7 × 8?", opcoes: ["54","56","58","64"], correta: 1, dica: "Tabuada do 7." },
+    { q: "Qual é a raiz quadrada de 81?", opcoes: ["7","8","9","10"], correta: 2, dica: "9 × 9 = 81." },
+    { q: "Quanto é (3/4) × (2/3)?", opcoes: ["1/2","2/3","6/7","5/12"], correta: 0, dica: "3×2=6; 4×3=12; 6/12 = 1/2." },
+    { q: "100 ÷ 4 = ?", opcoes: ["20","25","30","40"], correta: 1, dica: "25 × 4 = 100." },
+    { q: "√49 = ?", opcoes: ["6","7","8","9"], correta: 1, dica: "7 × 7 = 49." },
+    { q: "5/10 simplificado é:", opcoes: ["1/5","1/2","2/5","1/10"], correta: 1, dica: "Divide por 5." }
+  ],
+  portugues: [
+    { q: "Qual é substantivo?", opcoes: ["Correr","Bonito","Casa","Rapidamente"], correta: 2, dica: "Casa nomeia lugar." },
+    { q: "Sujeito de 'Maria estudou muito':", opcoes: ["Maria","estudou","muito","estudou muito"], correta: 0, dica: "Quem estudou?" },
+    { q: "'Meus olhos são o mar' é:", opcoes: ["Comparação","Metáfora","Ironia","Hipérbole"], correta: 1, dica: "Comparação implícita." },
+    { q: "Verbo em 'O menino correu':", opcoes: ["O","menino","correu","nenhum"], correta: 2, dica: "Ação." },
+    { q: "Qual é adjetivo?", opcoes: ["Casa","Correr","Bonito","Rapidamente"], correta: 2, dica: "Caracteriza." },
+    { q: "Função do advérbio:", opcoes: ["Nomear","Modificar verbo","Substituir nome","Ligar orações"], correta: 1, dica: "Modifica verbo, adj. ou adv." },
+    { q: "Sujeito oculto em:", opcoes: ["Maria correu.","Choveu ontem.","Estudei muito.","João e Pedro brincam."], correta: 2, dica: "'Eu' está implícito." },
+    { q: "'Que belo trabalho!' (para algo ruim) é:", opcoes: ["Metáfora","Ironia","Hipérbole","Personificação"], correta: 1, dica: "Dizer o contrário." },
+    { q: "Proparoxítona:", opcoes: ["Café","Lâmpada","Órgão","Fácil"], correta: 1, dica: "Antepenúltima sílaba tônica." },
+    { q: "Qual é conjunção?", opcoes: ["Mas","Casa","Bonito","Correr"], correta: 0, dica: "Liga orações." }
+  ],
+  ciencias: [
+    { q: "Organela que produz energia:", opcoes: ["Núcleo","Mitocôndria","Cloroplasto","Membrana"], correta: 1, dica: "Respiração celular." },
+    { q: "Fotossíntese ocorre em:", opcoes: ["Mitocôndria","Núcleo","Cloroplasto","Ribossomo"], correta: 2, dica: "Clorofila." },
+    { q: "Gás liberado na fotossíntese:", opcoes: ["CO₂","O₂","N₂","H₂"], correta: 1, dica: "Oxigênio." },
+    { q: "Sistema que transporta sangue:", opcoes: ["Digestório","Respiratório","Circulatório","Nervoso"], correta: 2, dica: "Coração + vasos." },
+    { q: "Bactérias são células:", opcoes: ["Eucariontes","Procariontes","Vegetais","Animais"], correta: 1, dica: "Sem núcleo definido." },
+    { q: "1º nível da cadeia alimentar:", opcoes: ["Consumidor","Decompositor","Produtor","Predador"], correta: 2, dica: "Plantas." },
+    { q: "Sólido → líquido:", opcoes: ["Fusão","Solidificação","Vaporização","Condensação"], correta: 0, dica: "Derreter." },
+    { q: "DNA fica no:", opcoes: ["Citoplasma","Membrana","Núcleo","Mitocôndria"], correta: 2, dica: "Núcleo." },
+    { q: "Fungos e bactérias são:", opcoes: ["Produtores","Consumidores","Decompositores","Herbívoros"], correta: 2, dica: "Decompõem matéria." },
+    { q: "Fórmula da fotossíntese:", opcoes: ["CO₂+H₂O+luz→glicose+O₂","O₂+H₂O→CO₂","Glicose→CO₂","H₂O→O₂"], correta: 0, dica: "Entra CO₂ e água." }
+  ],
+  geografia: [
+    { q: "Diferença entre tempo e clima:", opcoes: ["São iguais","Tempo = momento, clima = média","Clima = momento","Nenhuma"], correta: 1, dica: "Clima é longo prazo." },
+    { q: "Qual NÃO é forma de relevo?", opcoes: ["Planalto","Planície","Depressão","Atmosfera"], correta: 3, dica: "Atmosfera é camada de ar." },
+    { q: "Densidade demográfica é:", opcoes: ["Total de pessoas","Hab./área","Área total","Nascimentos"], correta: 1, dica: "População ÷ área." },
+    { q: "Brasil é:", opcoes: ["Povoado e populoso","Só populoso","Só povoado","Nem um nem outro"], correta: 1, dica: "Muita gente, mal distribuída." },
+    { q: "Mercosul inclui:", opcoes: ["Brasil e Argentina","Brasil e EUA","Brasil e China","Brasil e Rússia"], correta: 0, dica: "Bloco sul-americano." },
+    { q: "Fator que influencia clima:", opcoes: ["Latitude","Cor do céu","Fase da lua","Número de árvores"], correta: 0, dica: "Quanto mais perto do Equador, mais quente." },
+    { q: "Agente interno do relevo:", opcoes: ["Erosão","Vento","Tectonismo","Chuva"], correta: 2, dica: "Vem de dentro da Terra." },
+    { q: "Globalização é:", opcoes: ["Isolamento","Integração entre países","Guerra","Só economia"], correta: 1, dica: "Mundialização." },
+    { q: "Maior continente:", opcoes: ["África","Ásia","Europa","América"], correta: 1, dica: "Onde fica a China." },
+    { q: "Urbanização é:", opcoes: ["Saída das cidades","Crescimento das cidades","Só rural","Nenhuma"], correta: 1, dica: "Mais gente na cidade." }
+  ],
+  historia: [
+    { q: "Ano da chegada dos portugueses:", opcoes: ["1492","1500","1822","1889"], correta: 1, dica: "Cabral." },
+    { q: "Independência do Brasil:", opcoes: ["1500","1822","1888","1889"], correta: 1, dica: "D. Pedro I." },
+    { q: "Lei Áurea:", opcoes: ["1822","1850","1888","1889"], correta: 2, dica: "Abolição." },
+    { q: "Proclamação da República:", opcoes: ["1822","1888","1889","1930"], correta: 2, dica: "Deodoro." },
+    { q: "Era Vargas começou em:", opcoes: ["1889","1930","1945","1964"], correta: 1, dica: "Revolução de 30." },
+    { q: "Ditadura Militar no Brasil:", opcoes: ["1930-45","1945-64","1964-85","1985-2000"], correta: 2, dica: "21 anos." },
+    { q: "Revolução Francesa:", opcoes: ["1789","1822","1914","1945"], correta: 0, dica: "Século XVIII." },
+    { q: "2ª Guerra Mundial:", opcoes: ["1914-18","1939-45","1950-53","1960-70"], correta: 1, dica: "6 anos." },
+    { q: "Constituição de 1824 foi do:", opcoes: ["Colônia","Império","República Velha","Nova República"], correta: 1, dica: "D. Pedro I." },
+    { q: "Capitanias Hereditárias:", opcoes: ["Colônia","Império","República","Ditadura"], correta: 0, dica: "Divisão do Brasil colonial." }
+  ],
+  artes: [
+    { q: "Monet é do:", opcoes: ["Renascimento","Impressionismo","Cubismo","Pop Art"], correta: 1, dica: "Luz e sombra." },
+    { q: "Picasso é do:", opcoes: ["Cubismo","Barroco","Renascimento","Romantismo"], correta: 0, dica: "Formas geométricas." },
+    { q: "Azul + amarelo =", opcoes: ["Verde","Roxo","Laranja","Marrom"], correta: 0, dica: "Secundária." },
+    { q: "Semana de Arte Moderna:", opcoes: ["1900","1922","1950","1980"], correta: 1, dica: "São Paulo." },
+    { q: "Autora de 'Abaporu':", opcoes: ["Tarsila","Anita","Frida","Portinari"], correta: 0, dica: "Tarsila do Amaral." },
+    { q: "Elementos da música:", opcoes: ["Melodia, harmonia, ritmo","Só ritmo","Cor e forma","Nenhum"], correta: 0, dica: "Três pilares." },
+    { q: "Cores primárias:", opcoes: ["Azul, amarelo, vermelho","Verde, roxo, laranja","Preto e branco","Rosa e cinza"], correta: 0, dica: "Não vêm de misturas." },
+    { q: "Violão é instrumento de:", opcoes: ["Cordas","Sopro","Percussão","Teclas"], correta: 0, dica: "Tem cordas." },
+    { q: "Barroco no Brasil:", opcoes: ["Aleijadinho","Tarsila","Portinari","Monet"], correta: 0, dica: "Minas Gerais." },
+    { q: "Pop Art:", opcoes: ["Andy Warhol","Picasso","Monet","Da Vinci"], correta: 0, dica: "Latas de sopa." }
+  ],
+  edfisica: [
+    { q: "Jogadores de vôlei por time:", opcoes: ["5","6","7","11"], correta: 1, dica: "Seis em quadra." },
+    { q: "Futebol tem quantos por time?", opcoes: ["9","10","11","12"], correta: 2, dica: "Onze." },
+    { q: "Basquete tem quantos por time?", opcoes: ["5","6","7","11"], correta: 0, dica: "Cinco." },
+    { q: "100m rasos é prova de:", opcoes: ["Resistência","Velocidade","Força","Flexibilidade"], correta: 1, dica: "Curta distância." },
+    { q: "Fair Play significa:", opcoes: ["Jogar sujo","Espírito esportivo","Ganhar sempre","Nenhuma"], correta: 1, dica: "Respeito." },
+    { q: "Exercício físico:", opcoes: ["Só músculo","Melhora saúde geral","Só cardio","Nenhuma"], correta: 1, dica: "Corpo e mente." },
+    { q: "Handebol usa:", opcoes: ["Pés","Mãos","Raquete","Taco"], correta: 1, dica: "Nome diz." },
+    { q: "Natação é esporte:", opcoes: ["Coletivo","Individual","Misto","Nenhum"], correta: 1, dica: "Sozinho na raia." },
+    { q: "Aquecimento serve para:", opcoes: ["Cansaço","Preparar o corpo","Enfeitar","Nada"], correta: 1, dica: "Evita lesões." },
+    { q: "Ginástica artística:", opcoes: ["Individual","Coletivo","Misto","Nenhum"], correta: 0, dica: "Apresentação solo." }
+  ],
+  sociologia: [
+    { q: "Sociologia estuda:", opcoes: ["Só economia","Sociedade e relações","Só política","Nada"], correta: 1, dica: "Relações sociais." },
+    { q: "Cidadania inclui:", opcoes: ["Só direitos","Só deveres","Direitos e deveres","Nenhum"], correta: 2, dica: "Os dois." },
+    { q: "Cultura é:", opcoes: ["Só arte","Costumes e valores","Só música","Nada"], correta: 1, dica: "Conjunto de práticas." },
+    { q: "Votar é direito:", opcoes: ["Civil","Político","Social","Nenhum"], correta: 1, dica: "Participação política." },
+    { q: "Desigualdade social é:", opcoes: ["Igualdade","Diferença de acesso","Só econômica","Nenhuma"], correta: 1, dica: "Recursos desiguais." },
+    { q: "Instituição social:", opcoes: ["Família","Árvore","Rio","Pedra"], correta: 0, dica: "Grupo organizado." },
+    { q: "Carnaval é cultura:", opcoes: ["Material","Imaterial","Natural","Nenhuma"], correta: 1, dica: "Não é objeto." },
+    { q: "Estratificação social:", opcoes: ["Divisão em camadas","União total","Só pobreza","Nenhuma"], correta: 0, dica: "Classes." },
+    { q: "Direitos humanos são:", opcoes: ["Só de alguns","Universais","Só do Brasil","Nenhum"], correta: 1, dica: "Todos têm." },
+    { q: "Sociedade é:", opcoes: ["Indivíduos isolados","Grupo com regras","Só família","Nenhuma"], correta: 1, dica: "Vivem juntos." }
+  ],
+  conhecimento: [
+    { q: "Maior continente:", opcoes: ["África","Ásia","Europa","América"], correta: 1, dica: "China e Índia." },
+    { q: "País mais populoso (2024):", opcoes: ["China","Índia","EUA","Brasil"], correta: 1, dica: "Ultrapassou a China." },
+    { q: "ONU significa:", opcoes: ["Organização das Nações Unidas","Ordem Nacional Única","Organização Nova Universal","Nenhuma"], correta: 0, dica: "Fundada em 1945." },
+    { q: "Internet surgiu:", opcoes: ["Anos 60","Anos 90","Anos 2000","Anos 20"], correta: 0, dica: "Guerra Fria." },
+    { q: "Oscar é prêmio de:", opcoes: ["Música","Cinema","Literatura","Esporte"], correta: 1, dica: "Hollywood." },
+    { q: "Maior oceano:", opcoes: ["Atlântico","Índico","Pacífico","Ártico"], correta: 2, dica: "Maior do mundo." },
+    { q: "Vacina previne:", opcoes: ["Doenças","Fome","Sede","Nada"], correta: 0, dica: "Imunização." },
+    { q: "Brasil tem quantos estados?", opcoes: ["25","26","27","28"], correta: 2, dica: "26 + DF." },
+    { q: "Moeda do Brasil:", opcoes: ["Dólar","Real","Euro","Peso"], correta: 1, dica: "Desde 1994." },
+    { q: "Planeta mais próximo do Sol:", opcoes: ["Vênus","Mercúrio","Terra","Marte"], correta: 1, dica: "Menor planeta." }
+  ],
+  logica: [
+    { q: "Próximo de 2,4,6,8,...:", opcoes: ["9","10","11","12"], correta: 1, dica: "Soma 2." },
+    { q: "Próximo de 1,3,9,27,...:", opcoes: ["30","54","81","90"], correta: 2, dica: "Multiplica por 3." },
+    { q: "Todo A é B. X é A. Logo:", opcoes: ["X é B","B é X","X não é B","Nada"], correta: 0, dica: "Silogismo." },
+    { q: "Pé : perna :: mão :", opcoes: ["Dedo","Braço","Cabeça","Perna"], correta: 1, dica: "Parte do membro." },
+    { q: "Se 3 canetas = R$6, 5 =", opcoes: ["R$8","R$10","R$12","R$15"], correta: 1, dica: "R$2 cada." },
+    { q: "Próximo de 1,4,9,16,...:", opcoes: ["20","25","30","36"], correta: 1, dica: "Quadrados perfeitos." },
+    { q: "A é maior que B; B maior que C. Logo:", opcoes: ["A > C","C > A","A = C","Nada"], correta: 0, dica: "Transitividade." },
+    { q: "Se hoje é terça, amanhã é:", opcoes: ["Segunda","Quarta","Quinta","Domingo"], correta: 1, dica: "Próximo dia." },
+    { q: "Próximo de Z, X, V, T,...:", opcoes: ["S","R","Q","P"], correta: 1, dica: "Pula uma letra." },
+    { q: "2, 3, 5, 7, 11,... é sequência de:", opcoes: ["Pares","Primos","Ímpares","Quadrados"], correta: 1, dica: "Só divisíveis por 1 e ele mesmo." }
+  ],
+  filosofia: [
+    { q: "Filosofia significa:", opcoes: ["Amor à sabedoria","Amor à guerra","Amor à arte","Nada"], correta: 0, dica: "Philo + sophia." },
+    { q: "'Conhece-te a ti mesmo' é de:", opcoes: ["Sócrates","Platão","Aristóteles","Kant"], correta: 0, dica: "Filósofo grego." },
+    { q: "Mundo das ideias é de:", opcoes: ["Sócrates","Platão","Descartes","Nietzsche"], correta: 1, dica: "Discípulo de Sócrates." },
+    { q: "Ética estuda:", opcoes: ["Certo e errado","Beleza","Números","Nada"], correta: 0, dica: "Reflexão moral." },
+    { q: "Moral é:", opcoes: ["Costumes","Lei","Ciência","Arte"], correta: 0, dica: "Hábitos do grupo." },
+    { q: "Existencialismo valoriza:", opcoes: ["Liberdade","Riqueza","Poder","Nada"], correta: 0, dica: "Escolha individual." },
+    { q: "'Penso, logo existo' é de:", opcoes: ["Descartes","Kant","Platão","Sartre"], correta: 0, dica: "Filósofo francês." },
+    { q: "Nietzsche falou de:", opcoes: ["Super-homem","Mundo das ideias","Dúvida","Nada"], correta: 0, dica: "Übermensch." },
+    { q: "Filosofia busca:", opcoes: ["Respostas racionais","Riqueza","Fama","Nada"], correta: 0, dica: "Razão." },
+    { q: "Aristóteles foi discípulo de:", opcoes: ["Platão","Sócrates","Kant","Descartes"], correta: 0, dica: "Mestre de Alexandre." }
+  ],
+  diversificada1: [
+    { q: "Reciclagem serve para:", opcoes: ["Aumentar lixo","Reduzir lixo","Poluir","Nada"], correta: 1, dica: "Reaproveitar." },
+    { q: "Fake news é:", opcoes: ["Notícia verdadeira","Notícia falsa","Filme","Jogo"], correta: 1, dica: "Desinformação." },
+    { q: "Dormir bem:", opcoes: ["Prejudica","Melhora aprendizado","Não influencia","Nada"], correta: 1, dica: "Descanso." },
+    { q: "Declaração Universal dos Direitos Humanos:", opcoes: ["1948","1900","2000","1822"], correta: 0, dica: "Pós 2ª Guerra." },
+    { q: "Sustentabilidade é:", opcoes: ["Usar sem pensar","Usar com consciência","Desperdiçar","Nada"], correta: 1, dica: "Futuro." },
+    { q: "Aquecimento global é causado por:", opcoes: ["Gases poluentes","Chuva","Vento","Nada"], correta: 0, dica: "Efeito estufa." },
+    { q: "Privacidade nas redes:", opcoes: ["Não importa","Importante","Só para adultos","Nada"], correta: 1, dica: "Proteja dados." },
+    { q: "Alimentação saudável:", opcoes: ["Só fast food","Variada e equilibrada","Só doces","Nada"], correta: 1, dica: "Equilíbrio." },
+    { q: "Todos nascem:", opcoes: ["Livres e iguais","Diferentes em direitos","Sem direitos","Nada"], correta: 0, dica: "Direitos humanos." },
+    { q: "Respeito à diversidade:", opcoes: ["Ignorar","Aceitar diferenças","Discriminar","Nada"], correta: 1, dica: "Inclusão." }
+  ],
+  diversificada2: [
+    { q: "Poupar dinheiro é:", opcoes: ["Guardar parte","Gastar tudo","Perder","Nada"], correta: 0, dica: "Reserva." },
+    { q: "Juros compostos:", opcoes: ["Crescem exponencialmente","São fixos","Não existem","Nada"], correta: 0, dica: "Juros sobre juros." },
+    { q: "Sacola reutilizável:", opcoes: ["Polui mais","Reduz lixo","Não serve","Nada"], correta: 1, dica: "Sustentável." },
+    { q: "Brasil é:", opcoes: ["Monocultural","Multicultural","Sem cultura","Nada"], correta: 1, dica: "Muitas culturas." },
+    { q: "Escuta ativa é:", opcoes: ["Ouvir com atenção","Falar muito","Ignorar","Nada"], correta: 0, dica: "Comunicação." },
+    { q: "Investir é:", opcoes: ["Aplicar dinheiro","Gastar","Perder","Nada"], correta: 0, dica: "Fazer render." },
+    { q: "Cultura afro-brasileira:", opcoes: ["Importante","Irrelevante","Inexistente","Nada"], correta: 0, dica: "Raízes do Brasil." },
+    { q: "Argumentar é:", opcoes: ["Defender ideia com razão","Brigar","Gritar","Nada"], correta: 0, dica: "Com lógica." },
+    { q: "Controlar gastos:", opcoes: ["Anotar despesas","Gastar sem ver","Ignorar","Nada"], correta: 0, dica: "Educação financeira." },
+    { q: "Diversidade cultural:", opcoes: ["Deve ser respeitada","Deve ser ignorada","É ruim","Nada"], correta: 0, dica: "Respeito." }
+  ]
+};
+
+/* ============================================================
+   HISTÓRICO (SEM localStorage — à prova de bloqueio)
+   ============================================================ */
+let historicoErros = {};
+
+try {
+  const salvo = localStorage.getItem("historicoErros");
+  if (salvo) historicoErros = JSON.parse(salvo);
+} catch (e) {
+  console.warn("localStorage bloqueado. Histórico ficará só na memória.");
+}
+
+function salvarErros(materia, erros) {
+  historicoErros[materia] = erros;
+  try {
+    localStorage.setItem("historicoErros", JSON.stringify(historicoErros));
+  } catch (e) {}
+}
+
+function limparHistorico() {
+  if (confirm("Tem certeza que deseja limpar todo o histórico de erros?")) {
+    historicoErros = {};
+    try { localStorage.removeItem("historicoErros"); } catch (e) {}
+    renderizarResumoGeral();
+  }
+}
+
+/* ============================================================
+   NAVEGAÇÃO
+   ============================================================ */
+function abrirTela(id) {
+  document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativa'));
+  const alvo = document.getElementById(id);
+  if (!alvo) { console.error("Tela não encontrada:", id); return; }
+  alvo.classList.add('ativa');
+  window.scrollTo(0, 0);
+  if (id === 'tela-resumo') renderizarResumoGeral();
+}
+
+/* ============================================================
+   LOGIN
+   ============================================================ */
+let senhaCorreta = "";
+
+function gerarSenhaAleatoria() {
+  return Math.floor(10000 + Math.random() * 90000).toString();
+}
+function mostrarSenhaAleatoria() {
+  senhaCorreta = gerarSenhaAleatoria();
+  alert("You password is: " + senhaCorreta);
+  document.getElementById("senha").focus();
+}
+function alternarOlho() {
+  const input = document.getElementById("senha");
+  const olho = document.getElementById("olho");
+  if (input.type === "password") { input.type = "text"; olho.textContent = "🙈"; }
+  else { input.type = "password"; olho.textContent = "👁️"; }
+}
+document.getElementById("senha").addEventListener("input", function () {
+  const forca = document.getElementById("forca");
+  const valor = this.value;
+  const pct = Math.min(valor.length / 5 * 100, 100);
+  forca.style.width = pct + "%";
+  if (valor.length === 0) forca.style.background = "var(--lilas)";
+  else if (valor.length < 3) forca.style.background = "var(--erro)";
+  else if (valor.length < 5) forca.style.background = "var(--amarelo)";
+  else forca.style.background = "var(--sucesso)";
+});
+
+function verificarSenha() {
+  const input = document.getElementById("senha");
+  const feedback = document.getElementById("feedback");
+  const btn = document.getElementById("btnEntrar");
+  const digitada = input.value;
+  feedback.className = "feedback";
+  feedback.textContent = "";
+
+  if (!senhaCorreta) {
+    feedback.className = "feedback erro show";
+    feedback.textContent = '⚠️ Clique em "Hi javascript!" primeiro para gerar uma senha.';
+    return;
+  }
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> VERIFICANDO...';
+
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.textContent = "ENTRAR";
+    if (digitada === senhaCorreta) {
+      feedback.className = "feedback sucesso show";
+      feedback.textContent = "✓ Senha correta! Bem-vindo.";
+      lancarConfetes();
+      setTimeout(() => abrirTela('tela-portal'), 1500);
+    } else {
+      feedback.className = "feedback erro show";
+      feedback.textContent = "✗ Senha incorreta. Tente novamente.";
+      input.value = "";
+      input.focus();
+    }
+  }, 900);
+}
+
+function lancarConfetes() {
+  const cores = ["#b19cd9", "#d4c5f0", "#4dff9e", "#ffb84d", "#ff4d6d"];
+  for (let i = 0; i < 60; i++) {
+    const c = document.createElement("div");
+    c.className = "confete";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.background = cores[Math.floor(Math.random() * cores.length)];
+    c.style.animationDuration = (2 + Math.random() * 2) + "s";
+    c.style.animationDelay = Math.random() * 0.5 + "s";
+    c.style.borderRadius = Math.random() > 0.5 ? "50%" : "2px";
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 4500);
+  }
+}
+document.getElementById("senha").addEventListener("keydown", function (e) {
+  if (e.key === "Enter") verificarSenha();
+});
+
+/* ============================================================
+   RENDERIZAÇÃO DO PORTAL
+   ============================================================ */
+function renderizarPortal() {
+  const lista = document.getElementById("lista-materias");
+  if (!lista) return;
+  lista.innerHTML = "";
+  MATERIAS.forEach(m => {
+    const card = document.createElement("div");
+    card.className = "materia-card";
+    card.onclick = () => abrirTela("tela-" + m.id);
+    card.innerHTML = `
+      <div class="materia-icone">${m.icone}</div>
+      <div class="materia-nome">${m.nome}</div>
+      <div class="materia-desc">${m.desc}</div>
+    `;
+    lista.appendChild(card);
+  });
+}
+
+/* ============================================================
+   GERAR TELAS DE MATÉRIA
+   ============================================================ */
+function gerarTelasMaterias() {
+  const container = document.getElementById("telas-materias");
+  if (!container) return;
+  container.innerHTML = "";
+  MATERIAS.forEach(m => {
+    const tela = document.createElement("div");
+    tela.className = "tela conteudo";
+    tela.id = "tela-" + m.id;
+
+    let secoesHTML = "";
+    CONTEUDO[m.id].forEach(s => {
+      secoesHTML += `
+        <div class="secao">
+          <h3>${s.titulo}</h3>
+          <p>${s.texto}</p>
+          <div class="exemplo">${s.exemplo}</div>
+        </div>
+      `;
+    });
+
+    tela.innerHTML = `
+      <div class="materia-conteudo">
+        <button class="voltar-btn" onclick="abrirTela('tela-portal')">← Voltar ao Portal</button>
+        <h2 class="materia-titulo">${m.icone} ${m.nome}</h2>
+        <p class="materia-subtitulo">${m.desc}</p>
+        ${secoesHTML}
+        <div class="prova-container" id="prova-${m.id}">
+          <h3 class="prova-titulo">📝 Prova de ${m.nome}</h3>
+          <p class="prova-sub">10 questões • marque a alternativa correta</p>
+          <div id="questoes-${m.id}"></div>
+          <button class="botao-prova" onclick="corrigirProva('${m.id}')">CORRIGIR PROVA</button>
+          <div class="resultado-prova" id="resultado-${m.id}"></div>
+          <div class="resumo-erros" id="erros-${m.id}"></div>
+        </div>
+      </div>
+    `;
+    container.appendChild(tela);
+  });
+}
+
+/* ============================================================
+   RENDERIZAR QUESTÕES
+   ============================================================ */
+function renderizarTodasQuestoes() {
+  MATERIAS.forEach(m => {
+    const container = document.getElementById("questoes-" + m.id);
+    if (!container) return;
+    container.innerHTML = "";
+    QUESTOES[m.id].forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "questao";
+      div.id = "q-" + m.id + "-" + i;
+      let html = `<div class="questao-enunciado">${i + 1}. ${q.q}</div><div class="opcoes">`;
+      q.opcoes.forEach((op, j) => {
+        html += `<label class="opcao" id="op-${m.id}-${i}-${j}">
+          <input type="radio" name="${m.id}-${i}" value="${j}">
+          <span>${op}</span></label>`;
+      });
+      html += "</div>";
+      div.innerHTML = html;
+      container.appendChild(div);
+    });
+  });
+}
+
+/* ============================================================
+   CORRIGIR PROVA
+   ============================================================ */
+function corrigirProva(materia) {
+  const questoes = QUESTOES[materia];
+  const nomeMateria = MATERIAS.find(m => m.id === materia).nome;
+  let acertos = 0;
+  const erros = [];
+
+  questoes.forEach((q, i) => {
+    const selecionada = document.querySelector(`input[name="${materia}-${i}"]:checked`);
+    const questaoDiv = document.getElementById(`q-${materia}-${i}`);
+    questaoDiv.querySelectorAll(".opcao").forEach(o => o.classList.remove("correta", "errada"));
+
+    const corretaLabel = document.getElementById(`op-${materia}-${i}-${q.correta}`);
+    corretaLabel.classList.add("correta");
+
+    if (selecionada) {
+      questaoDiv.classList.add("respondida");
+      const escolhida = parseInt(selecionada.value);
+      if (escolhida === q.correta) {
+        acertos++;
+      } else {
+        const erradaLabel = document.getElementById(`op-${materia}-${i}-${escolhida}`);
+        erradaLabel.classList.add("errada");
+        erros.push({ enunciado: q.q, errada: q.opcoes[escolhida], certa: q.opcoes[q.correta], dica: q.dica });
+      }
+    } else {
+      erros.push({ enunciado: q.q, errada: "(não respondida)", certa: q.opcoes[q.correta], dica: q.dica });
+    }
+  });
+
+  const resultado = document.getElementById("resultado-" + materia);
+  const pct = (acertos / questoes.length) * 100;
+  resultado.classList.add("show");
+  if (pct >= 60) {
+    resultado.className = "resultado-prova show aprovado";
+    resultado.textContent = `🎉 Aprovado! Você acertou ${acertos}/${questoes.length} (${pct.toFixed(0)}%)`;
+    lancarConfetes();
+  } else {
+    resultado.className = "resultado-prova show reprovado";
+    resultado.textContent = `📚 Você acertou ${acertos}/${questoes.length} (${pct.toFixed(0)}%). Estude mais e tente de novo!`;
+  }
+
+  const resumoErros = document.getElementById("erros-" + materia);
+  if (erros.length > 0) {
+    let html = `<h4>❌ O que você errou em ${nomeMateria}:</h4>`;
+    erros.forEach(e => {
+      html += `<div class="erro-item">
+        <div class="enunciado">${e.enunciado}</div>
+        <div class="resposta-errada">Você marcou: ${e.errada}</div>
+        <div class="resposta-certa">Resposta correta: ${e.certa}</div>
+        <div class="dica">💡 ${e.dica}</div>
+      </div>`;
+    });
+    resumoErros.innerHTML = html;
+    resumoErros.classList.add("show");
+  } else {
+    resumoErros.innerHTML = `<h4 style="color:var(--sucesso)">🎉 Você acertou tudo! Nenhum erro para revisar.</h4>`;
+    resumoErros.classList.add("show");
+  }
+
+  salvarErros(materia, erros);
+  resultado.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+/* ============================================================
+   RESUMO GERAL
+   ============================================================ */
+function renderizarResumoGeral() {
+  const container = document.getElementById("resumo-geral-conteudo");
+  if (!container) return;
+  const materiasComErros = Object.keys(historicoErros).filter(k => historicoErros[k].length > 0);
+
+  if (materiasComErros.length === 0) {
+    container.innerHTML = `<div class="resumo-geral-vazio">
+      ✨ Nenhum erro registrado ainda.<br>Faça algumas provas e volte aqui para revisar!
+    </div>`;
+    return;
+  }
+
+  let html = "";
+  materiasComErros.forEach(materiaId => {
+    const materia = MATERIAS.find(m => m.id === materiaId);
+    if (!materia) return;
+    const erros = historicoErros[materiaId];
+    html += `<div class="materia-resumo-bloco">
+      <h3>${materia.icone} ${materia.nome} (${erros.length} erro${erros.length > 1 ? "s" : ""})</h3>`;
+    erros.forEach(e => {
+      html += `<div class="erro-item">
+        <div class="enunciado">${e.enunciado}</div>
+        <div class="resposta-errada">Você marcou: ${e.errada}</div>
+        <div class="resposta-certa">Resposta correta: ${e.certa}</div>
+        <div class="dica">💡 ${e.dica}</div>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+  container.innerHTML = html;
+}
+
+/* ============================================================
+   INICIALIZAÇÃO BLINDADA
+   ============================================================ */
+window.addEventListener("DOMContentLoaded", function () {
+  console.log("🚀 Iniciando Portal...");
+  try {
+    renderizarPortal();
+    console.log("✅ Portal renderizado");
+  } catch (e) { console.error("❌ Portal:", e); }
+
+  try {
+    gerarTelasMaterias();
+    console.log("✅ Telas de matérias geradas");
+  } catch (e) { console.error("❌ Telas:", e); }
+
+  try {
+    renderizarTodasQuestoes();
+    console.log("✅ Questões renderizadas");
+  } catch (e) { console.error("❌ Questões:", e); }
+});
+</script>
+
+</body>
+</html>
